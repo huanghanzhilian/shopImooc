@@ -1,0 +1,12 @@
+<?php
+//定义常量
+define("DB_HOST","localhost");
+//定义常量用户名
+define("DB_USER","root");
+//定义常量密码
+define("DB_PWD","root1234");
+//定义常量数据库名称
+define("DB_DBNAME","shopImooc");
+//定义常量编码方式
+define("DB_CHARSET","utf8");
+?>
