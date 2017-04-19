@@ -12,15 +12,20 @@ function connect(){
 
 //完成记录插入的操作
 function insert($table,$array){
-	//得到数组中的键名也就是插入记录的字段名
+	/*//得到数组中的键名也就是插入记录的字段名
 	$kwys=join(",",array_keys($array));
 	//获取数组非键名的所有值
 	$vals="'".join(",",array_values($array))."'";
 	//插入数据 insert{$table表名}($kwys键名) values($vals值)
-	$sql="insert{$table}($kwys) values($vals)";
+	$sql="insert {$table}($kwys) values($vals)";
 	//执行插入
 	mysql_query($sql);
 	//返回id
+	return mysql_insert_id();*/
+	$keys=join(",",array_keys($array));
+	$vals="'".join("','",array_values($array))."'";
+	$sql="insert {$table}($keys) values({$vals})";
+	mysql_query($sql);
 	return mysql_insert_id();
 }
 
@@ -40,6 +45,7 @@ function update($table,$array,$where=null){
 		//var_dump($result);
 		//var_dump(mysql_affected_rows());exit;
 		if($result){
+			//返回受影响的记录条数
 			return mysql_affected_rows();
 		}else{
 			return false;
@@ -50,6 +56,7 @@ function delete($table,$where=null){
 	$where=$where==null?null:" where ".$where;
 	$sql="delete from {$table} {$where}";
 	mysql_query($sql);
+	//返回受影响的记录条数
 	return mysql_affected_rows();
 }
 //得到指定一条记录

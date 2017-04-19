@@ -11,5 +11,6 @@ require_once 'string.func.php';
 require_once 'page.func.php';
 require_once 'configs.php';
 require_once 'admin.inc.php';
+//连接数据库
 connect();
 ?>

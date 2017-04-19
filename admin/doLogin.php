@@ -1,18 +1,39 @@
 <?php
 //包含函数
 require_once '../include.php';
-
+//$username等于post过来的username
 $username=$_POST['username'];
+//密码
 $password=md5($_POST['password']);
+//验证码
 $verify=$_POST['verify'];
+//SESSION中的验证码
 $verify1=$_SESSION['verify'];
 //var_dump($_POST);
+//一周内自动登入
+$autoFlag=$_POST['autoFlag'];
+//判断验证码是否正确
 if($verify==$verify1){
+	//select查询语句 imooc_admin数据库 where条件 username=匹配username and并且密码相符
 	$sql="select * from imooc_admin where username='{$username}' and password='{$password}'";
+	//返回的是结果$row
 	$row=checkAdmin($sql);
-	var_dump($row);
+	//var_dump($row);
+	if($row){
+		//如果选了一周内自动登入
+		if($autoFlag){
+			setcookie("adminId",$row['id'],time()+7*24*3600);
+			setcookie("adminName",$row['username'],time()+7*24*3600);
+		}
+		//如果登入查询成功_SESSION记录username
+		$_SESSION['adminName']=$row['username'];
+		$_SESSION['adminId']=$row['id'];
+		//跳转页面
+		header("location:index.php");
+	}else{
+		alertMes("登入失败,重新登入","login.html");
+	}
 }else{
-	echo "<script>alert('验证码错误')</script>";
-	echo "<script>window.location='login.html'</script>";
+	alertMes("验证码错误","login.html");
 }
 ?>
