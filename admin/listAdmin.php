@@ -1,11 +1,14 @@
 <?php
-    require_once '../include.php';
-    $rows=getAllAdmin();
-    //var_dump($rows);
-    if(!$rows){
-        alertMes("sorry,没有管理员,请添加!","addAdmin.php");
-        exit;
-    }
+require_once '../include.php';
+$pageSize=5;
+$page=$_REQUEST['page']?(int)$_REQUEST['page']:1;
+$rows=getAdminByPage($page,$pageSize);
+//$rows=getAllAdmin();
+//var_dump($rows);
+if(!$rows){
+    alertMes("sorry,没有管理员,请添加!","addAdmin.php");
+    exit;
+}
 ?>
 <!doctype html>
 <html>
@@ -43,14 +46,16 @@
                 <td><?php echo $row['username']; ?></td>
                 <td><?php echo $row['email']; ?></td>
                 <td align="center">
-                    <input type="button" value="修改" class="btn" onclick="editAdmin()">
-                    <input type="button" value="删除" class="btn"  onclick="delAdmin()">
+                    <input type="button" value="修改" class="btn" onclick="editAdmin(<?php echo $row['id'];?>)">
+                    <input type="button" value="删除" class="btn"  onclick="delAdmin(<?php echo $row['id'];?>)">
                 </td>
             </tr>
             <?php $i++; endforeach;?>
-            <!-- <tr>
-                <td colspan="4">sss</td>
-            </tr> -->
+            <?php if($totalRows>$pageSize):?>
+            <tr>
+                <td colspan="4"><?php echo showPage($page, $totalPage);?></td>
+            </tr>
+            <?php endif;?>
         </tbody>
     </table>
 </div>

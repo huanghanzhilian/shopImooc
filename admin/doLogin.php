@@ -31,9 +31,9 @@ if($verify==$verify1){
 		//跳转页面
 		header("location:index.php");
 	}else{
-		alertMes("登入失败,重新登入","login.html");
+		alertMes("登入失败,重新登入","login.php");
 	}
 }else{
-	alertMes("验证码错误","login.html");
+	alertMes("验证码错误","login.php");
 }
 ?>

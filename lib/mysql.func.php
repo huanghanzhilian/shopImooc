@@ -51,6 +51,10 @@ function update($table,$array,$where=null){
 			return false;
 		}
 }
+
+
+
+
 //删除记录
 function delete($table,$where=null){
 	$where=$where==null?null:" where ".$where;
