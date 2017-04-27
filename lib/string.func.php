@@ -18,4 +18,19 @@ function buildRandomString($type=1,$length=4){
 	//截取数据 并且返回 从0开始截取到参数的长度
 	return substr($chars,0,$length);
 };
+
+//生成唯一字符串
+function getUniName(){
+	return md5(uniqid(microtime(true),true));
+}
+
+/**
+ * 得到文件的扩展名
+ * @param string $filename
+ * @return string
+ */
+function getExt($filename){
+	//return strtolower(end(explode(".",$filename)));
+	return strtolower(substr($filename, strrpos($filename, '.') + 1));
+}
 ?>

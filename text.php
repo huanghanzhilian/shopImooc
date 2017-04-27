@@ -27,4 +27,15 @@ echo "delete from {$table} {$where}"."<br/>";
 
 echo $_COOKIE[session_name()]."<br/>";
 echo session_name()."<br/>";
+echo md5("1")."<br/>";
+//uniqid() 函数基于以微秒计的当前时间，生成一个唯一的 ID。
+echo uniqid()."<br/>";
+//返回当前 Unix 时间戳的微秒数：
+echo microtime(true)."<br/>";
+echo md5(uniqid(microtime(true),true))."<br/>";
+//echo strtolower(end(explode(".","ssssss.sss")));
+//echo strtolower(explode(".","ssssss.sss"));
+//print_r(strtolower(explode(".","ssssss.sss")));
+$filename="sAaewewew.dsadaA";
+echo strtolower(substr($filename, strrpos($filename, '.') + 1));
 ?>
