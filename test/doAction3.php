@@ -1,4 +1,7 @@
 <?php
+require_once '../lib/string.func.php';
+header("content-type:text/html;charset=utf-8");
+//print_r($_FILES);
 /**
  * 构建上传文件信息
  *return array
@@ -88,4 +91,7 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
 }
 
 
+
+$fileInfo=uploadFile();
+print_r($fileInfo);
 ?>
