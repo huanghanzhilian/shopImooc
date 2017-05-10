@@ -18,6 +18,8 @@ if($act=='logout'){
 }elseif($act=='delCate'){
 	$where="id={$id}";
 	$mes=delCate($where);
+}elseif($act=='addPro'){
+	$mes=addPro();
 }
 ?>
 <!DOCTYPE html>

@@ -12,6 +12,9 @@ require_once 'page.func.php';
 require_once 'configs.php';
 require_once 'admin.inc.php';
 require_once 'cate.inc.php';
+require_once 'pro.inc.php';
+require_once 'album.inc.php';
+require_once 'upload.func.php';
 //连接数据库
 connect();
 ?>

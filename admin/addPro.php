@@ -1,8 +1,9 @@
 <?php 
 require_once '../include.php';
+//验证管理员是否登入
 checkLogined();
-$rows=getAllCate();
-if(!$rows){
+$rows=getAllCate();//得到所有的分类
+if(!$rows){//判断是否有值
 	alertMes("没有相应分类，请先添加分类!!", "addCate.php");
 }
 ?>

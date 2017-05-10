@@ -8,7 +8,7 @@
  $isReservedSource=false;  是否保留源文件
  */
 require_once '../lib/string.func.php';
-$filename="logo_index.png";
+$filename="aa.png";
 //thumb($filename);
 thumb($filename,"images_50/".$filename,50,50,true);
 thumb($filename,"images_220/".$filename,50,50,true);
