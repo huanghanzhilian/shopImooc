@@ -1,28 +1,35 @@
 <?php
 ob_clean();
-$filename="sssssqw.jpg";//对哪个文件产生缩略图
+$filename="des_big.jpg";//对哪个文件产生缩略图
 list($src_w,$src_h,$imagetype)=getimagesize($filename);//根据获取图片大小函数返回值的数组得到图片的宽高和类型
-$mime=image_type_to_mime_type($imagetype);//$mimes使用函数求出类型
-$createFun=str_replace("/", "createfrom", $mime);
-$outFun=str_replace("/",null,$mime);
-echo $mime."<br/>";
-echo $createFun."<br/>";
-echo $outFun."<br/>";
+$mime=image_type_to_mime_type($imagetype);//$mimes使用函数求出类型  image/jpeg
+$createFun=str_replace("/", "createfrom", $mime);  //imagecreatefromjpeg    str_replace — 子字符串替换
+$outFun=str_replace("/",null,$mime);   //imagejpeg
 
-/*$src_image=imagecreatefromjpeg($filename);//创建jpg画布资源  — 由文件或 URL 创建一个新图象。
-list($src_w,$src_h)=getimagesize($filename);//根据获取图片大小函数返回值的数组得到图片的宽高
-//设定缩放比例
-$scale=0.5;//0.5倍
-$dst_w=ceil($src_w*$scale);//新图片的宽等于原图宽成于0.5倍  ceil()函数取整
-$dst_h=ceil($src_h*$scale);//高度同样
-$dst_image=imagecreatetruecolor($dst_w,$dst_h);//创建画布  新建一个真彩色图像
-imagecopyresampled($dst_image, $src_image,0,0,0,0, $dst_w, $dst_h, $src_w, $src_h);//重采样拷贝部分图像并调整大小
-imagejpeg($dst_image, null, 100);
+$src_image=$createFun($filename);//创建jpg画布资源  — 由文件或 URL 创建一个新图象。
+$dst_50_image=imagecreatetruecolor(50,50);//创建画布  新建一个真彩色图像  创建50*50
+$dst_220_image=imagecreatetruecolor(220,220);
+$dst_350_image=imagecreatetruecolor(350,350);
+$dst_800_image=imagecreatetruecolor(800,800);
+
+imagecopyresampled($dst_50_image, $src_image,0,0,0,0, 50, 50, $src_w, $src_h);//重采样拷贝部分图像并调整大小
+imagecopyresampled($dst_220_image, $src_image,0,0,0,0, 220, 220, $src_w, $src_h);//重采样拷贝部分图像并调整大小
+imagecopyresampled($dst_350_image, $src_image,0,0,0,0, 350, 350, $src_w, $src_h);//重采样拷贝部分图像并调整大小
+imagecopyresampled($dst_800_image, $src_image,0,0,0,0, 800, 800, $src_w, $src_h);//重采样拷贝部分图像并调整大小
+
 // 内容类型
-header('Content-Type: image/jpeg');
-imagejpeg($dst_image,"uploads/".$filename);//输出图象到浏览器或文件。
-imagedestroy($src_image);//销毁一图像
-imagedestroy($dst_image);//销毁一图像*/
-//print_r(getimagesize($filename))
+header('Content-Type:'.$outFun);
+
+$outFun($dst_50_image,"uploads/image_50/".$filename);//输出图象到浏览器或文件。
+$outFun($dst_220_image,"uploads/image_220/".$filename);//输出图象到浏览器或文件。
+$outFun($dst_350_image,"uploads/image_350/".$filename);//输出图象到浏览器或文件。
+$outFun($dst_800_image,"uploads/image_800/".$filename);//输出图象到浏览器或文件。
+
+imagedestroy($dst_50_image);//销毁一图像
+imagedestroy($dst_220_image);//销毁一图像
+imagedestroy($dst_350_image);//销毁一图像
+imagedestroy($dst_800_image);//销毁一图像
+
+
 
 ?>
