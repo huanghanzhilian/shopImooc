@@ -1,4 +1,5 @@
 <?php 
+/*
 $fruit = array("苹果",'香蕉','菠萝');
 var_dump($fruit);
 //得到数组中的键名也就是插入记录的字段名
@@ -38,4 +39,8 @@ echo md5(uniqid(microtime(true),true))."<br/>";
 //print_r(strtolower(explode(".","ssssss.sss")));
 $filename="sAaewewew.dsadaA";
 echo strtolower(substr($filename, strrpos($filename, '.') + 1));
+
+*/
+
+
 ?>

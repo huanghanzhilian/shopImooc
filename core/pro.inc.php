@@ -46,4 +46,14 @@ function addPro(){
 	}
 	return $mes;
 }
+
+/**
+ * 得到商品的所有信息
+ * @return array
+ */
+function getAllProByAdmin(){
+	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName from imooc_pro as p join imooc_cate c on p.cId=c.id";
+	$rows=fetchAll($sql);
+	return $rows;
+}
 ?>
