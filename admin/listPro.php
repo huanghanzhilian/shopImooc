@@ -104,7 +104,7 @@ $rows=fetchAll($sql);
 
                                 <td align="center">
                     				<input type="button" value="详情" class="btn" onclick="showDetail(<?php echo $row['id'];?>,'<?php echo $row['pName'];?>')">
-                    				<input type="button" value="修改" class="btn">
+                    				<input type="button" value="修改" class="btn" onclick="editPro(<?php echo $row['id'];?>)">
                     				<input type="button" value="删除" class="btn">
 		                            <div id="showDetail<?php echo $row['id'];?>" style="display:none;">
 			                        	<table class="table" cellspacing="0" cellpadding="0">
@@ -135,7 +135,12 @@ $rows=fetchAll($sql);
 			                        		<tr>
 			                        			<td width="20%"  align="right">商品图片</td>
 			                        			<td>
-			                        			xx
+			                        			<?php 
+			                        			$proImgs=getAllImgByProId($row['id']);
+			                        			foreach($proImgs as $img):
+			                        			?>
+			                        			<img width="100" height="100" src="uploads/<?php echo $img['albumPath'];?>" alt=""/> &nbsp;&nbsp;
+			                        			<?php endforeach;?>
 			                        			</td>
 			                        		</tr>
 			                        		<tr>
@@ -162,7 +167,7 @@ $rows=fetchAll($sql);
                         	<?php $i++; endforeach;?>
                            	<?php if($totalRows>$pageSize):?>
 				            <tr>
-				                <td colspan="7"><?php echo showPage($page, $totalPage);?></td>
+				                <td colspan="5"><?php echo showPage($page, $totalPage);?></td>
 				            </tr>
 				            <?php endif;?>
                         </tbody>
@@ -182,9 +187,35 @@ function showDetail(id,t){
 	      hide:"explode"
 	});
 }
-	function addPro(){
-		window.location='addPro.php';
+//添加
+function addPro(){
+	window.location='addPro.php';
+}
+
+//修改
+function editPro(id){
+	window.location='editPro.php?id='+id;
+}
+
+//删除
+function delPro(id){
+	if(window.confirm("您确认要删除嘛？添加一次不易，且删且珍惜!")){
+		window.location="doAdminAction.php?act=delPro&id="+id;
 	}
+}
+
+//
+function search(){
+	if(event.keyCode==13){
+		var val=document.getElementById("search").value;
+		window.location="listPro.php?keywords="+val;
+	}
+}
+
+//
+function change(val){
+	window.location="listPro.php?order="+val;
+}
 </script>
 </body>
 </html>

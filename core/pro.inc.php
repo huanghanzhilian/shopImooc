@@ -56,4 +56,18 @@ function getAllProByAdmin(){
 	$rows=fetchAll($sql);
 	return $rows;
 }
+
+
+/**
+ *根据商品id得到商品图片
+ * @param int $id
+ * @return array
+ */
+function getAllImgByProId($id){
+	$sql="select a.albumPath from imooc_album a where pid={$id}";
+	$rows=fetchAll($sql);
+	return $rows;
+}
+
+
 ?>
