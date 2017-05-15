@@ -5,6 +5,10 @@
  */
 
 function buildInfo(){
+	//如果文件爲空就退出
+	if(!$_FILES){
+		return ;
+	}
 	$i=0;
 	foreach($_FILES as $v){//循环第一维
 		if(is_string($v['name'])){//判断数组中name值是否是字符串形式 如果是就说明是单文件上传
@@ -29,6 +33,9 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
 	}
 	$i=0;
 	$files=buildInfo();
+	if(!($files&&is_array($files))){
+		return ;
+	}
 	foreach($files as $file){
 		if($file['error']===UPLOAD_ERR_OK){
 			$ext=getExt($file['name']);

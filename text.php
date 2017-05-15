@@ -42,5 +42,9 @@ echo strtolower(substr($filename, strrpos($filename, '.') + 1));
 
 */
 
+$while=$where="id=1";
+$sql="select a.albumPath from imooc_album a where pid=1";
+echo $sql;
+
 
 ?>

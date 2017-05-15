@@ -3,13 +3,21 @@ require_once '../include.php';
 //验证管理员是否登入
 checkLogined();
 
+$order=$_REQUEST['order']?$_REQUEST['order']:null;
+
+$orderBy=$order?"order by p.".$order:null;
+
+$keywords=$_REQUEST['keywords']?$_REQUEST['keywords']:null;
+$where=$keywords?"where p.pName like '%{$keywords}%'":null;
+
+
 //得到总记录数   
 $sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName from imooc_pro as p join imooc_cate c on p.cId=c.id {$where}  ";
 
 //得到总记录数
 $totalRows=getResultNum($sql);
 //每页显示记录数
-$pageSize=2;
+$pageSize=4;
 
 //得到总页码数
 $totalPage=ceil($totalRows/$pageSize);
@@ -23,11 +31,19 @@ $offset=($page-1)*$pageSize;
 //得到数据库所有商品
 $sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName from imooc_pro as p join imooc_cate c on p.cId=c.id {$where} {$orderBy} limit {$offset},{$pageSize}";
 $rows=fetchAll($sql);
+if(!$rows){
+	return;
+}
 //print_r($rows)
 
 //$rows=getAllProByAdmin($sql);
 //print_r($rows);
 //得到数据库中所有商品
+//如果$rows数据为空中止脚本执行函数
+/*if(!$rows){
+    alertMes("sorry,没有分类,请添加!","addPro.php");
+    exit;
+}*/
 ?>
 <!doctype html>
 <html>
@@ -52,28 +68,28 @@ $rows=fetchAll($sql);
                         </div>
                         <div class="fr">
                             <div class="text">
-                                <span>商品名称：</span>
+                                <span>商品价格：</span>
                                 <div class="bui_select">
-                                    <select name="" id="" class="select">
-                                        <option value="1">测试内容</option>
-                                        <option value="1">测试内容</option>
-                                        <option value="1">测试内容</option>
+                                    <select name="" id="" class="select" onchange="change(this.value)">
+                                    	<option>-请选择-</option>
+                                        <option value="iPrice asc" <?php echo $order=="iPrice asc"?"selected='selected'":null;?>>由低到高</option>
+                                        <option value="iPrice desc" <?php echo $order=="iPrice desc"?"selected='selected'":null;?>>由高到低</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="text">
                                 <span>上架时间：</span>
                                 <div class="bui_select">
-                                    <select name="" id="" class="select">
-                                        <option value="1">测试内容</option>
-                                        <option value="1">测试内容</option>
-                                        <option value="1">测试内容</option>
+                                    <select name="" id="" class="select" onchange="change(this.value)">
+                                        <option>-请选择-</option>
+                                        <option value="pubTime desc" <?php echo $order=="pubTime desc"?"selected='selected'":null;?>>最新发布</option>
+                                        <option value="pubTime asc" <?php echo $order=="pubTime asc"?"selected='selected'":null;?>>历史发布</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="text">
                                 <span>搜索</span>
-                                <input type="text" value="" class="search">
+                                <input type="text" value="<?php echo $keywords=$keywords?$keywords:"";?>" class="search"  id="search" onkeydown="search(event)" >
                             </div>
                         </div>
                     </div>
@@ -105,7 +121,7 @@ $rows=fetchAll($sql);
                                 <td align="center">
                     				<input type="button" value="详情" class="btn" onclick="showDetail(<?php echo $row['id'];?>,'<?php echo $row['pName'];?>')">
                     				<input type="button" value="修改" class="btn" onclick="editPro(<?php echo $row['id'];?>)">
-                    				<input type="button" value="删除" class="btn">
+                    				<input type="button" value="删除" class="btn" onclick="delPro(<?php echo $row['id'];?>)">
 		                            <div id="showDetail<?php echo $row['id'];?>" style="display:none;">
 			                        	<table class="table" cellspacing="0" cellpadding="0">
 			                        		<tr>
@@ -167,7 +183,7 @@ $rows=fetchAll($sql);
                         	<?php $i++; endforeach;?>
                            	<?php if($totalRows>$pageSize):?>
 				            <tr>
-				                <td colspan="5"><?php echo showPage($page, $totalPage);?></td>
+				                <td colspan="5"><?php echo showPage($page, $totalPage,"keywords={$keywords}&order={$order}");?></td>
 				            </tr>
 				            <?php endif;?>
                         </tbody>
@@ -205,7 +221,9 @@ function delPro(id){
 }
 
 //
-function search(){
+function search(event){
+	console.log(event)
+	event = event || window.event;
 	if(event.keyCode==13){
 		var val=document.getElementById("search").value;
 		window.location="listPro.php?keywords="+val;

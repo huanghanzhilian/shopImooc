@@ -20,6 +20,10 @@ if($act=='logout'){
 	$mes=delCate($where);
 }elseif($act=='addPro'){
 	$mes=addPro();
+}elseif($act=='editPro'){
+	$mes=editPro($id);
+}elseif($act=='delPro'){
+	$mes=delPro($id);
 }
 ?>
 <!DOCTYPE html>
