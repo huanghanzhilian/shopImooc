@@ -1,7 +1,6 @@
 <?php 
 require_once 'include.php';
-$pros=getAllPros();
-//print_r($pros);
+
 $cates=getAllcate();
 if(!($cates && is_array($cates))){
 	alertMes("不好意思，网站维护中!!!", "http://www.imooc.com");
