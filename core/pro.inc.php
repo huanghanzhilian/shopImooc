@@ -158,7 +158,6 @@ function getAllProByAdmin(){
 	return $rows;
 }
 
-
 /**
  *根据商品id得到商品图片
  * @param int $id
@@ -170,16 +169,67 @@ function getAllImgByProId($id){
 	return $rows;
 }
 
-
 /**
  * 根据id得到商品的详细信息
  * @param int $id
  * @return array
  */
 function getProById($id){
-	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id where p.id={$id}";
-	$row=fetchOne($sql);
-	return $row;
+		$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id where p.id={$id}";
+		$row=fetchOne($sql);
+		return $row;
+}
+/**
+ * 检查分类下是否有产品
+ * @param int $cid
+ * @return array
+ */
+function checkProExist($cid){
+	$sql="select * from imooc_pro where cId={$cid}";
+	$rows=fetchAll($sql);
+	return $rows;
+}
+
+/**
+ * 得到所有商品
+ * @return array
+ */
+function getAllPros(){
+	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id ";
+	$rows=fetchAll($sql);
+	return $rows;
+}
+
+/**
+ *根据cid得到4条产品
+ * @param int $cid
+ * @return Array
+ */
+function getProsByCid($cid){
+	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id where p.cId={$cid} limit 4";
+	$rows=fetchAll($sql);
+	return $rows;
+}
+
+/**
+ * 得到下4条产品
+ * @param int $cid
+ * @return array
+ */
+function getSmallProsByCid($cid){
+	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id where p.cId={$cid} limit 4,4";
+	$rows=fetchAll($sql);
+	return $rows;
+}
+
+/**
+ *得到商品ID和商品名称
+ * @return array
+ */
+function getProInfo(){
+	$sql="select id,pName from imooc_pro order by id asc";
+	$rows=fetchAll($sql);
+	return $rows;
 }
 
 
