@@ -23,6 +23,12 @@ if($act=='logout'){
 	$mes=editPro($id);
 }elseif($act=='delPro'){
 	$mes=delPro($id);
+}elseif($act=='addUser'){
+	$mes=addUser();
+}elseif($act=='delUser'){
+	$mes=delUser($id);
+}elseif($act=='editUser'){
+	$mes=editUser($id);
 }
 ?>
 <!DOCTYPE html>
