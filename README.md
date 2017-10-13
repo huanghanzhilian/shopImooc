@@ -3,20 +3,6 @@
 PHP + Mysql + Javascripe
 
 
-# 项目运行
-
-
-```
-cnpm i -g bower(安装bower)
-
-bower install(安装第三方依赖)
-
-cnpm install
-
-gulp (运行)
-
-```
-
 
 
 # 说明
@@ -37,9 +23,7 @@ gulp (运行)
 
 
 
-# 效果演示
 
-[查看demo请点击这里](http://www.huanghanlian.com/agwebapp/build/)（请用chrome手机模式预览）
 
 
 
@@ -52,6 +36,9 @@ gulp (运行)
 │   ├── images                                        //后台图片目录
 │   ├── scripts                                       //后台脚本文件目录
 │   ├── styles                                        //后台样式文件目录
+│   ├── login.php                                     //后台登入页
+│   ├── index.php                                     //后台首页
+│   ├── getVerify.php                                 //登入验证码db图
 ├── plugins                                           //网站插件目录
 │   ├── kindeditor                                    //后线编辑器插件
 ├── core                                              //核心操作性文件
